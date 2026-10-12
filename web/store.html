@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fern &amp; Oak — 为真实生活做的家具</title>
+<link rel="stylesheet" href="/store.css">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="brand">FERN <span>&amp;</span> OAK</div>
+  <nav class="nav">
+    <a href="#" data-cat="">全部</a>
+    <a href="#" data-cat="sofa">沙发</a>
+    <a href="#" data-cat="armchair">单椅</a>
+    <a href="#" data-cat="dining_table">餐桌</a>
+    <a href="#" data-cat="storage">收纳</a>
+    <a href="#" data-cat="floor_lamp">灯具</a>
+  </nav>
+  <div class="acts">
+    <button id="lang" class="ghost" type="button">EN</button>
+    <button class="cartbtn" type="button">购物车 <b id="cartn">0</b></button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>为真实生活做的家具</h1>
+  <p>不是样板间里的样子货。你能坐一小时、孩子能爬、猫能挠，也能自己装好。</p>
+  <div class="hero-cta">
+    <span class="pill">240 件在售</span>
+    <span class="pill">2–14 天发货</span>
+    <span class="pill">30 天可退</span>
+  </div>
+</section>
+
+<section class="toolbar">
+  <div class="cats" id="cats"></div>
+  <div class="fx" id="fx"></div>
+</section>
+
+<main id="grid" class="grid" aria-live="polite"></main>
+
+<footer class="ftr">
+  <div>
+    <b>Fern &amp; Oak</b> · 本店为演示用途，商品与价格均为虚构数据。
+  </div>
+  <div id="fxf"></div>
+</footer>
+
+<!-- 数据访问层：服务端模式走 /api，静态模式走浏览器端引擎 -->
+<script src="/nook-api.js" data-api="/api"></script>
+
+<!-- ★★★★★ 客户接入 Nook 只需要下面这一行 ★★★★★ -->
+<script src="/nook-widget.js"
+        data-api="/api"
+        data-lang="zh"
+        data-accent="#2f6f4e"></script>
+<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
+
+<script src="/store.js"></script>
+</body>
+</html>

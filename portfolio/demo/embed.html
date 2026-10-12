@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[静态版] 嵌入演示 — 任何网站加一行就能用</title>
+<style>
+  /* 这个页面故意做成和店铺页完全不同的风格（深色 / 衬线 / 编辑感），
+     用来证明 Nook 的样式被 Shadow DOM 隔离了 —— 它既不污染宿主，也不被宿主污染。 */
+  :root{
+    --bg:#12100e; --ink:#f0ece4; --mut:#9a938a; --line:#2b2723; --gold:#c9a227;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink); min-height:100vh;
+    font-family:Georgia,"Songti SC","SimSun",serif; line-height:1.75;
+  }
+  .top{border-bottom:1px solid var(--line); padding:18px 28px; display:flex;
+       justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap}
+  .logo{letter-spacing:5px; font-size:13px; color:var(--gold); text-transform:uppercase}
+  .top nav a{color:var(--mut); text-decoration:none; font-size:13px; margin-left:18px}
+  .top nav a:hover{color:var(--ink)}
+  article{max-width:720px; margin:0 auto; padding:70px 28px 130px}
+  .kick{font-size:12px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:18px}
+  h1{font-size:clamp(28px,5vw,46px); line-height:1.22; margin:0 0 22px; font-weight:400; letter-spacing:-.5px}
+  .byline{color:var(--mut); font-size:13px; margin-bottom:38px;
+          border-bottom:1px solid var(--line); padding-bottom:22px}
+  p{font-size:16.5px; color:#ddd7cd}
+  blockquote{border-left:2px solid var(--gold); margin:32px 0; padding:4px 0 4px 22px;
+             color:var(--mut); font-style:italic}
+  code{background:#1c1916; border:1px solid var(--line); border-radius:4px; padding:2px 7px;
+       font-family:ui-monospace,Consolas,monospace; font-size:13.5px; color:#e0c66b}
+  pre{background:#1a1714; border:1px solid var(--line); border-radius:10px; padding:16px 18px;
+      overflow-x:auto; font-size:13px; color:#cfc7bb; font-family:ui-monospace,Consolas,monospace;
+      line-height:1.65}
+  .box{border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin:34px 0; background:#171411}
+  .box h3{margin:0 0 10px; font-size:15px; color:var(--gold); font-weight:400; letter-spacing:1px}
+  .box ul{margin:0; padding-left:20px; color:var(--mut); font-size:14.5px}
+  .box li{margin-bottom:7px}
+  .hint{color:var(--mut); font-size:14px; text-align:center; margin-top:56px;
+        border-top:1px solid var(--line); padding-top:26px}
+</style>
+</head>
+<body>
+<script src="static-engine.js"></script>
+<script>
+  /* 静态演示版：先把商品库取回来初始化引擎，再放行页面查询。
+     nook-api.js 里的 whenReady() 会等这个事件。 */
+  fetch('products.json')
+    .then(function (r) { return r.json(); })
+    .then(function (p) {
+      window.NookEngine.init(p);
+      window.dispatchEvent(new Event('nook:engine-ready'));
+    })
+    .catch(function () {
+      document.body.insertAdjacentHTML('afterbegin',
+        '<p style="padding:14px;background:#fdeaea;color:#c62828">'
+        + '商品库加载失败，请通过 HTTP 访问（本地直接双击打开 file:// 会被浏览器拦截）。</p>');
+    });
+</script>
+
+
+<div class="top">
+  <div class="logo">Slow Interiors</div>
+  <nav><a href="#">专栏</a><a href="#">访谈</a><a href="#">关于</a></nav>
+</div>
+
+<article>
+  <div class="kick">嵌入演示</div>
+  <h1>任何网站，加一行 script 就有一个 AI 导购</h1>
+  <div class="byline">这个页面和 Fern &amp; Oak 的店铺页毫无关系 · 深色主题 · 完全不同的字体与配色</div>
+
+  <p>下面这段就是全部接入代码：</p>
+<pre>&lt;script src="nook-widget.js"
+        data-api="/api"
+        data-lang="zh"
+        data-accent="#2f6f4e"&gt;&lt;/script&gt;</pre>
+
+  <p>右下角那个按钮就是它。注意两件事：</p>
+
+  <blockquote>
+    它用的是自己的字体、配色、圆角和阴影，<b>没有继承这个页面的任何样式</b>；<br>
+    反过来，它也没有往这个页面里塞任何全局 CSS。
+  </blockquote>
+
+  <p>这是用 Shadow DOM 做到的。对一个要给客户站点嵌入组件的团队来说，
+    这不是锦上添花，而是<b>能不能交付的前提</b>——你不能要求客户为了装你的组件去改自己的样式表。</p>
+
+  <div class="box">
+    <h3>为什么接入方式长这样</h3>
+    <ul>
+      <li>只有一个 <code>&lt;script&gt;</code>，客户不需要构建工具、不需要 npm、不需要改框架</li>
+      <li>配置走 <code>data-*</code> 属性，运维改一行就能换配色和语言</li>
+      <li>加购通过 <code>nook:add-to-cart</code> 自定义事件抛给宿主页面，两边解耦</li>
+      <li>不污染全局，只在 <code>window.Nook</code> 上暴露一个句柄</li>
+    </ul>
+  </div>
+
+  <h1 style="font-size:22px;color:var(--mut);font-weight:400">试试看</h1>
+  <p>点右下角的按钮，然后说一句不需要想清楚的话，比如
+    <b>「我想弄个能窝着看书的地方」</b>——注意 Nook 不会问你「你想要什么产品」。</p>
+
+  <div class="hint">Nook · 可嵌入 AI 导购引擎 · 演示环境</div>
+</article>
+
+<!-- ★ 全部接入代码，就这一行 ★ -->
+<script src="nook-widget.js"
+        data-api="/api"
+        data-lang="zh"
+        data-accent="#c9a227"
+        data-brand="Slow Interiors"></script>
+
+</body>
+</html>

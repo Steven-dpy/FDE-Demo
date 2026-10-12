@@ -1,0 +1,20 @@
+[
+ {"id": "q01", "lang": "zh", "turns": ["我想弄个能窝着看书的地方"]},
+ {"id": "q02", "lang": "zh", "turns": ["我想弄个能窝着看书的地方", "预算一万"]},
+ {"id": "q03", "lang": "zh", "turns": ["我想弄个能窝着看书的地方", "预算一万", "北欧风"]},
+ {"id": "q04", "lang": "zh", "turns": ["客厅要个沙发，预算一万八以内"]},
+ {"id": "q05", "lang": "zh", "turns": ["小户型 收纳"]},
+ {"id": "q06", "lang": "zh", "turns": ["预算两千五"]},
+ {"id": "q07", "lang": "zh", "turns": ["茶几 不要超过 120cm"]},
+ {"id": "q08", "lang": "zh", "turns": ["我要买个手机"]},
+ {"id": "q09", "lang": "zh", "turns": ["书房想弄个办公的地方"]},
+ {"id": "q10", "lang": "en", "turns": ["a corner to curl up and read"]},
+ {"id": "q11", "lang": "en", "turns": ["a corner to curl up and read", "budget 1400"]},
+ {"id": "q12", "lang": "en", "turns": ["living room sofa scandinavian budget 2500"]},
+ {"id": "q13", "lang": "en", "turns": ["I need something for my place"]},
+ {"id": "q14", "lang": "en", "turns": ["I need something for my place", "the living room"]},
+ {"id": "q15", "lang": "en", "turns": ["do you sell laptops?"]},
+ {"id": "q16", "lang": "zh", "turns": ["阳台想放两把椅子"]},
+ {"id": "q17", "lang": "zh", "turns": ["有孩子的家庭客厅怎么选"]},
+ {"id": "q18", "lang": "en", "turns": ["storage ideas for a small flat"]}
+]

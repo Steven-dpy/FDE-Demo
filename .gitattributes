@@ -1,0 +1,24 @@
+# 统一换行：仓库内存 LF，检出时按平台处理，避免 Windows/macOS 协作时的整文件 diff
+* text=auto eol=lf
+
+# 明确二进制，避免被当文本处理
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+
+# 锁文件与生成物按语言高亮
+*.json text
+*.md text
+*.py text
+*.js text
+*.css text
+*.html text
+
+# portfolio/demo/ 是 tools/build_static.py 的生成物，
+# 在 diff 中折叠，避免污染代码审查视野
+portfolio/demo/* linguist-generated=true
